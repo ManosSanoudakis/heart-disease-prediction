@@ -4,7 +4,7 @@ Accuracy is a comfortable metric until you remember what a false negative means 
 
 ## Dataset
 
-[Heart Disease UCI - Kaggle](https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset). 1,025 patient records, 13 clinical features, no missing values. Binary target: disease present or not. Clean data meant I could focus entirely on modeling.
+[Heart Disease UCI on Kaggle](https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset). 1,025 patient records, 13 clinical features, no missing values. Binary target: disease present or not. Clean data meant I could focus entirely on modeling.
 
 ## Results
 
@@ -27,19 +27,6 @@ cd heart-disease-prediction
 pip install -r requirements.txt
 jupyter notebook
 ```
-
-## Requirements
-
-```
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-joblib
-```
-
-Python 3.8+ recommended.
 
 ## Structure
 
