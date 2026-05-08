@@ -1,67 +1,32 @@
 # Heart Disease Prediction
 
-A machine learning project that predicts the presence of heart disease from clinical patient data. Built with a focus on evaluation metrics that actually matter in a medical context — not just accuracy.
-
----
-
-## Why this project
-
-Accuracy alone is a poor metric when the cost of a false negative is someone's life. This project explores how to build and evaluate classification models responsibly, prioritizing recall on the disease class and ROC-AUC over surface-level performance numbers.
-
----
+Accuracy is a comfortable metric until you remember what a false negative means here: someone goes home thinking they're fine. This project is built around that problem. When the cost of being wrong isn't symmetric, you stop optimizing for accuracy and start caring about recall and AUC.
 
 ## Dataset
 
-- **1,025 patient records**, 13 clinical features
-- Binary target: `0` = No disease, `1` = Disease present
-- No missing values — minimal preprocessing required
-
-Features include age, chest pain type, resting blood pressure, cholesterol, fasting blood sugar, and more.
-
----
-
-## What's inside
-
-- Data exploration and visualization
-- Multiple classification models trained and compared
-- Stratified 5-fold cross-validation throughout
-- Hyperparameter tuning with `GridSearchCV`
-- Final model exported as a reusable pipeline
-
----
+[Heart Disease UCI - Kaggle](https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset). 1,025 patient records, 13 clinical features, no missing values. Binary target: disease present or not. Clean data meant I could focus entirely on modeling.
 
 ## Results
 
-The final model is **Logistic Regression** — chosen not just for performance, but because it's interpretable. In a medical setting, being able to explain *why* the model flagged a patient matters.
+Three classifiers trained and compared with stratified 5-fold cross-validation and `GridSearchCV` tuning throughout: Logistic Regression, Random Forest, and SVC. All pipelines used `class_weight="balanced"` to handle the medical cost of missing a positive case, and `RobustScaler` for the models that needed it.
+
+The final model is Logistic Regression. Not because it scored highest on paper, but because in a medical context you need to be able to explain why the model flagged someone. A black box that's 2% more accurate isn't a good trade.
 
 | Metric | Score |
 |---|---|
 | ROC-AUC | ~0.88 |
 | Recall (disease class) | ~0.82 |
 
-One of the more interesting findings: simpler models held their own against more complex ones. With a dataset of this size, regularization and proper evaluation mattered more than model choice.
+With a dataset this size, regularization and proper cross-validation mattered more than which model I picked. The complexity ceiling hits fast at 1k rows.
 
----
+## Setup
 
-## Getting started
-
-**Clone the repo**
 ```bash
 git clone https://github.com/your-username/heart-disease-prediction.git
 cd heart-disease-prediction
-```
-
-**Install dependencies**
-```bash
 pip install -r requirements.txt
-```
-
-**Run the notebook**
-```bash
 jupyter notebook
 ```
-
----
 
 ## Requirements
 
@@ -76,24 +41,13 @@ joblib
 
 Python 3.8+ recommended.
 
----
-
-## Project structure
+## Structure
 
 ```
 heart-disease-prediction/
-│
-├── data/                  # Dataset
-├── notebooks/             # Main analysis notebook
-├── models/                # Saved model pipeline (joblib)
+├── data/
+├── notebooks/
+├── models/
 ├── requirements.txt
 └── README.md
 ```
-
----
-
-## Key takeaways
-
-- Recall matters more than accuracy when false negatives are costly
-- Cross-validation and proper stratification prevent misleadingly optimistic results
-- Logistic Regression is still a strong baseline — and one you can actually explain
